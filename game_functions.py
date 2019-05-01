@@ -26,8 +26,8 @@ def check_events(dino):
             if event.key == pygame.K_DOWN:
                 dino.moving_down = False
 
-def update_screen(ai_settings, screen, dino, cactus):
-    screen.fill(ai_settings.bg_color)
+def update_screen(dino_settings, screen, dino, cactus):
+    screen.fill(dino_settings.bg_color)
     dino.blitme()
     cactus.blitme()
 

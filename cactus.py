@@ -6,10 +6,10 @@ from settings import Settings
 
 class Cactus_Small():
 
-    def __init__(self, ai_settings, screen):
+    def __init__(self, dino_settings, screen):
 
         self.screen = screen
-        self.ai_settings = ai_settings
+        self.dino_settings = dino_settings
 
         self.current_name = random.choice(range(4))
         self.image = pygame.image.load('elements/cactus_small_' \

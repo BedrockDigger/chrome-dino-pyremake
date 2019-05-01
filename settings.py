@@ -5,5 +5,5 @@ class Settings():
 
         self.bg_color = (255, 255, 255)
 
-        self.dino_speed_factor = 1
+        self.dino_speed_factor = 2
         self.cactus_speed_factor = 1
