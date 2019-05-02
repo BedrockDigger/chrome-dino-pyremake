@@ -17,7 +17,7 @@ py -m pip install -U pygame
 ```shell
 git clone https://github.com/BedrockDigger/chrome-dino-pyremake
 ```
-3 Now simply launch main.py and have fun!
+**3** Now simply launch main.py and have fun!
 ###### Linux / Mac OS X
 ```shell
 cd ./chrome-dino-pyremake
