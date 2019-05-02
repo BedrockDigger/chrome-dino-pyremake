@@ -4,10 +4,9 @@ import pygame
 
 def check_events(dino):
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT:    # actively quit the game if requested
             sys.exit()
-
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:    # response to keyboard controls
             if event.key == pygame.K_RIGHT:
                 dino.moving_right = True
             if event.key == pygame.K_LEFT:
@@ -26,9 +25,10 @@ def check_events(dino):
             if event.key == pygame.K_DOWN:
                 dino.moving_down = False
 
+
 def update_screen(dino_settings, screen, dino, cactus):
-    screen.fill(dino_settings.bg_color)
+    screen.fill(dino_settings.bg_color)    # update everything displayed
     dino.blitme()
     cactus.blitme()
 
-#pygame.display.flip()
+# pygame.display.flip()

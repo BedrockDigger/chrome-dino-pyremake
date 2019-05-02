@@ -21,10 +21,10 @@ class Dino():
         self.moving_up = False
         self.moving_down = False
 
-        self.dino_debug = False     # Switch to trigger debug output in stdout
-
     def update(self, dino_settings):
+
         self.dino_settings = Settings()
+
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.rect.x += 1*dino_settings.dino_speed_factor
         if self.moving_left and self.rect.left > self.screen_rect.left:
@@ -33,9 +33,10 @@ class Dino():
             self.rect.y -= 1*dino_settings.dino_speed_factor
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.rect.y += 1*dino_settings.dino_speed_factor
-        if self.dino_debug is True:
+
+        if dino_settings.dino_debug is True:
             print("INFO Current dino cord: " +
-                str(self.rect.x) + ", " + str(self.rect.y))
+                  str(self.rect.x) + ", " + str(self.rect.y))
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
