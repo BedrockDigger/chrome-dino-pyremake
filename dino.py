@@ -1,42 +1,50 @@
+from time import sleep
 import pygame
+
+import ioresolv
 from settings import Settings
 
 
 class Dino():
 
-    def __init__(self, dino_settings, screen):
+    def __init__(self, screen, settings):
 
+        self.image = pygame.image.load('assets/dino_still.png')
         self.screen = screen
-        self.dino_settings = dino_settings
-
-        self.image = pygame.image.load('elements/dino_still.png')
+        self.settings = Settings()
+        self.screen_rect = self.screen.get_rect()
         self.rect = self.image.get_rect()
-        self.screen_rect = screen.get_rect()
 
-        self.rect.x = self.screen_rect.x
-        self.rect.y = self.screen_rect.y
+        self.rect.centery = self.screen_rect.centery
+        self.rect.centerx = self.screen_rect.left + 100
+        ioresolv.refresh_rect(self)
 
-        self.moving_right = False
-        self.moving_left = False
-        self.moving_up = False
-        self.moving_down = False
+        self.jumping = False
+        self.dodging = False
+        self.counter = 1
+        self.altimg_counter = 0
+        self.crrnt_dh = self.settings.dhmax
 
-    def update(self, dino_settings):
 
-        self.dino_settings = Settings()
+    def update(self, dhmax):
 
-        if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.rect.x += 1*dino_settings.dino_speed_factor
-        if self.moving_left and self.rect.left > self.screen_rect.left:
-            self.rect.x -= 1*dino_settings.dino_speed_factor
-        if self.moving_up and self.rect.top > self.screen_rect.top:
-            self.rect.y -= 1*dino_settings.dino_speed_factor
-        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
-            self.rect.y += 1*dino_settings.dino_speed_factor
+        if self.jumping or self.rect.centery != self.screen_rect.centery:
+           self.image = pygame.image.load('assets/dino_still.png')
+           ioresolv.gravity(self)
 
-        if dino_settings.dino_debug is True:
-            print("INFO Current dino cord: " +
-                  str(self.rect.x) + ", " + str(self.rect.y))
+        elif self.dodging:
+            ioresolv.alt_img(self, 'dodging')
+            print("[INFO] The dino dodges!")
+            self.rect = self.image.get_rect()
+            ioresolv.dino_cord_reinit(self)
+            ioresolv.refresh_rect(self)
+            ioresolv.refresh_screen(self.screen)
+            self.altimg_counter = self.altimg_counter + 1
 
-    def blitme(self):
-        self.screen.blit(self.image, self.rect)
+        else:
+            ioresolv.alt_img(self, 'running')
+            self.rect = self.image.get_rect()
+            ioresolv.dino_cord_reinit(self)
+            ioresolv.refresh_rect(self)
+            ioresolv.refresh_screen(self.screen)
+            self.altimg_counter = self.altimg_counter + 1
